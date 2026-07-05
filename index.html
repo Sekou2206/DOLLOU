@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIMITRI DOLLOU — Haute Couture Mariage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: #000;
+      color: #fff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: #000;
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      transition: transform 0.4s ease;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .wordmark {
+      text-align: center;
+      padding: 28px 0 8px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.35rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: #000;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      position: relative;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 0.5px;
+      background: #000;
+      transition: width 0.4s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      position: absolute;
+      right: 48px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-icons button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #000;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-icons button:hover {
+      opacity: 1;
+    }
+
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      right: 48px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #000;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 40%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .hero-cta::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.5px;
+      background: rgba(255,255,255,0.6);
+      transition: background 0.3s ease;
+    }
+
+    .hero-cta:hover::after {
+      background: #fff;
+    }
+
+    /* ─── SECTIONS GÉNÉRALES ─── */
+    section {
+      padding: 120px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    /* ─── GRILLE ÉDITORIALE 2 COLONNES ─── */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 120px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .editorial-block {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .editorial-block img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      filter: grayscale(80%) contrast(1.02);
+      transition: filter 0.6s ease, transform 0.8s ease;
+    }
+
+    .editorial-block:hover img {
+      filter: grayscale(30%) contrast(1);
+      transform: scale(1.02);
+    }
+
+    .editorial-caption {
+      text-align: center;
+      padding-top: 24px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #000;
+    }
+
+    /* ─── PLEINE LARGEUR ─── */
+    .fullwidth-section {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .fullwidth-image {
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      filter: grayscale(90%) contrast(1.03);
+      display: block;
+    }
+
+    .fullwidth-caption {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 48px 0;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.4);
+    }
+
+    /* ─── L'ATELIER ─── */
+    .atelier {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .atelier-img-wrapper {
+      overflow: hidden;
+    }
+
+    .atelier-img-wrapper img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      filter: grayscale(70%);
+    }
+
+    .atelier-text {
+      padding: 40px 0;
+    }
+
+    .atelier-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      color: #000;
+    }
+
+    .atelier-text p {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(0,0,0,0.6);
+      margin-bottom: 40px;
+    }
+
+    .atelier-text p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .atelier-link {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      margin-top: 40px;
+    }
+
+    .atelier-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.5px;
+      background: rgba(0,0,0,0.4);
+      transition: background 0.3s ease;
+    }
+
+    .atelier-link:hover::after {
+      background: #000;
+    }
+
+    /* ─── COLLECTION GRILLE ─── */
+    .collection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .collection-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .collection-item img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      filter: grayscale(75%);
+      transition: filter 0.6s ease, transform 0.8s ease;
+    }
+
+    .collection-item:hover img {
+      filter: grayscale(20%);
+      transform: scale(1.02);
+    }
+
+    .collection-item-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 20px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+      text-align: center;
+    }
+
+    .collection-item-label span {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* ─── CTA RENDEZ-VOUS ─── */
+    .cta-section {
+      text-align: center;
+      padding: 160px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: #000;
+    }
+
+    .cta-section p {
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: rgba(0,0,0,0.4);
+      margin-bottom: 48px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #000;
+      border: none;
+      padding: 18px 56px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background: #222;
+    }
+
+    /* ─── SÉPARATEUR ─── */
+    .separator {
+      width: 40px;
+      height: 0.5px;
+      background: rgba(0,0,0,0.15);
+      margin: 0 auto;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #000;
+      color: #fff;
+      padding: 60px 48px;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      color: rgba(255,255,255,0.3);
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-social a:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ─── MOBILE NAV OVERLAY ─── */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      transform: translateY(-100%);
+      transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .mobile-nav.open {
+      transform: translateY(0);
+    }
+
+    .mobile-nav a {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      opacity: 1;
+    }
+
+    .mobile-nav-close {
+      position: absolute;
+      top: 28px;
+      right: 48px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #000;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .collection-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .collection-item:last-child {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 0 24px;
+      }
+
+      .wordmark {
+        font-size: 1rem;
+        letter-spacing: 0.35em;
+        padding: 22px 0 10px;
+      }
+
+      .nav-links, .nav-icons {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero-title {
+        letter-spacing: 0.3em;
+      }
+
+      .hero-content {
+        padding-bottom: 60px;
+      }
+
+      .editorial-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 80px 24px;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      .atelier {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .collection-grid {
+        grid-template-columns: 1fr;
+        padding: 0 24px;
+      }
+
+      .collection-item:last-child {
+        display: block;
+      }
+
+      .fullwidth-image {
+        height: 50vh;
+      }
+
+      .fullwidth-caption {
+        padding: 24px 24px 0;
+      }
+
+      .cta-section {
+        padding: 100px 24px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer {
+        padding: 48px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="mainHeader">
+    <div class="header-inner">
+      <div class="wordmark">Dimitri Dollou</div>
+      <div class="nav-row">
+        <ul class="nav-links">
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="#sur-mesure">Sur-Mesure</a></li>
+          <li><a href="#atelier">Maison</a></li>
+          <li><a href="#boutique">Boutique</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+          <button aria-label="Recherche">
+            <iconify-icon icon="lucide:search" width="16" height="16"></iconify-icon>
+          </button>
+          <button aria-label="Compte">
+            <iconify-icon icon="lucide:user" width="16" height="16"></iconify-icon>
+          </button>
+          <button aria-label="Rendez-vous">
+            <iconify-icon icon="lucide:calendar" width="16" height="16"></iconify-icon>
+          </button>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <iconify-icon icon="lucide:menu" width="22" height="22"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Fermer">
+      <iconify-icon icon="lucide:x" width="24" height="24"></iconify-icon>
+    </button>
+    <a href="#collections" onclick="closeMobileNav()">Collections</a>
+    <a href="#sur-mesure" onclick="closeMobileNav()">Sur-Mesure</a>
+    <a href="#atelier" onclick="closeMobileNav()">Maison</a>
+    <a href="#boutique" onclick="closeMobileNav()">Boutique</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="IMG_0314.jpg" alt="Silhouette de mariée" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Collection 2025</p>
+      <h1 class="hero-title">Sur-Mesure</h1>
+      <a href="#collections" class="hero-cta">Découvrir</a>
+    </div>
+  </section>
+
+  <!-- GRILLE ÉDITORIALE -->
+  <div class="editorial-grid" id="collections">
+    <div class="editorial-block">
+      <img src="IMG_0311.jpg" alt="Robe de mariée">
+      <div class="editorial-caption">Robes de Mariée</div>
+    </div>
+    <div class="editorial-block" id="sur-mesure">
+      <img src="IMG_0303.jpg" alt="Bustier structuré">
+      <div class="editorial-caption">Bustiers</div>
+    </div>
+  </div>
+
+  <!-- PLEINE LARGEUR -->
+  <div class="fullwidth-section">
+    <img src="IMG_0315.jpg" alt="Détail dentelle et soie" class="fullwidth-image">
+    <p class="fullwidth-caption">Dentelle de Calais — Pièce unique</p>
+  </div>
+
+  <!-- L'ATELIER -->
+  <section id="atelier">
+    <div class="atelier">
+      <div class="atelier-img-wrapper">
+        <img src="IMG_0301.jpg" alt="Portrait du styliste-modéliste">
+      </div>
+      <div class="atelier-text">
+        <div class="section-label" style="text-align:left;">L'Atelier</div>
+        <h2>Dimitri Dollou</h2>
+        <p>Chaque pièce naît d'un dialogue entre la matière et le geste. Le sur-mesure n'est pas un service, c'est une exigence — celle de concevoir une robe qui n'existe nulle part ailleurs.</p>
+        <p>Formé aux savoir-faire de la haute couture parisienne, Dimitri Dollou fonde sa maison sur une conviction : la robe de mariée doit être une architecture de soi.</p>
+        <a href="#" class="atelier-link">Consultation privée</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SÉPARATEUR -->
+  <div class="separator"></div>
+
+  <!-- COLLECTION GRILLE -->
+  <section id="boutique">
+    <p class="section-label">Pièces sélectionnées</p>
+    <div class="collection-grid">
+      <div class="collection-item">
+        <img src="IMG_0313.jpg" alt="Robe minimaliste">
+        <div class="collection-item-label"><span>Robe Nº 01</span></div>
+      </div>
+      <div class="collection-item">
+        <img src="IMG_0304.jpg" alt="Corset structuré">
+        <div class="collection-item-label"><span>Bustier Nº 03</span></div>
+      </div>
+      <div class="collection-item">
+        <img src="IMG_0303.jpg" alt="Voile et accessoires">
+        <div class="collection-item-label"><span>Accessoires</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLEINE LARGEUR 2 -->
+  <div class="fullwidth-section" style="margin-top: 80px;">
+    <img src="IMG_0303.jpg" alt="Essayage en atelier" class="fullwidth-image">
+    <p class="fullwidth-caption">Prise de mesures — Consultation privée</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section" id="contact">
+    <h2>Prise de Rendez-vous</h2>
+    <p>Consultation sur rendez-vous uniquement</p>
+    <a href="#" class="cta-button">Réserver</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Dimitri Dollou</div>
+      <ul class="footer-links">
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">
+          <iconify-icon icon="lucide:instagram" width="16" height="16"></iconify-icon>
+        </a>
+        <a href="#" aria-label="Pinterest">
+          <iconify-icon icon="simple-icons:pinterest" width="14" height="14"></iconify-icon>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavClose = document.getElementById('mobileNavClose');
+
+    menuToggle.addEventListener('click', () => {
+      mobileNav.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    mobileNavClose.addEventListener('click', closeMobileNav);
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    let lastScroll = 0;
+    const header = document.getElementById('mainHeader');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll > lastScroll && currentScroll > 120) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      lastScroll = currentScroll;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
