@@ -65,6 +65,7 @@
     /* ═══════ HERO ═══════ */
     .hero {
       width: 100%; height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: flex-end; justify-content: center;
     }
     .hero-img {
       position: absolute; inset: 0; width: 100%; height: 100%;
@@ -72,31 +73,28 @@
     }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 35%, transparent 60%);
+      background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 40%, transparent 100%);
     }
     .hero-content {
-      position: absolute; bottom: 14%; left: 48px; z-index: 2;
+      position: relative; z-index: 2; text-align: center; padding-bottom: 80px;
     }
     .hero-label {
-      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.65rem;
-      letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.7rem;
+      letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 16px;
     }
     .hero-title {
       font-family: 'Playfair Display', serif; font-weight: 400;
-      font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0.3em; text-transform: uppercase; color: #fff;
-      margin-bottom: 0;
-    }
-    .hero-line {
-      width: 48px; height: 0.5px; background: rgba(255,255,255,0.4); margin: 28px 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: 0.5em; text-transform: uppercase; color: #fff;
+      margin-bottom: 32px;
     }
     .hero-cta {
       display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
-      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
       color: #fff; text-decoration: none; position: relative; padding-bottom: 4px; cursor: pointer;
     }
     .hero-cta::after {
       content: ''; position: absolute; bottom: 0; left: 0; width: 100%;
-      height: 0.5px; background: rgba(255,255,255,0.5); transition: background 0.3s ease;
+      height: 0.5px; background: rgba(255,255,255,0.6); transition: background 0.3s ease;
     }
     .hero-cta:hover::after { background: #fff; }
     .hero-vertical {
@@ -161,6 +159,23 @@
       letter-spacing: 0.25em; text-transform: uppercase; color: rgba(0,0,0,0.4);
     }
 
+    /* ═══════ REFINED IMAGE (avant CTA) ═══════ */
+    .refined-image-section {
+      padding: 100px 48px 0; max-width: 1200px; margin: 0 auto;
+    }
+    .refined-image-wrapper {
+      overflow: hidden;
+    }
+    .refined-image-wrapper img {
+      width: 100%; height: 60vh; object-fit: cover;
+      filter: grayscale(85%) contrast(1.03); display: block;
+    }
+    .refined-image-caption {
+      text-align: center; font-family: 'Inter', sans-serif; font-weight: 200;
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(0,0,0,0.28); padding: 28px 0 0;
+    }
+
     /* ═══════ ATELIER ═══════ */
     .atelier { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .atelier-img-wrapper { overflow: hidden; }
@@ -187,6 +202,27 @@
     .atelier-link:hover::after { background: #000; }
 
     .separator { width: 40px; height: 0.5px; background: rgba(0,0,0,0.15); margin: 0 auto; }
+
+    /* ═══════ COLLECTION GRILLE (anciennement boutique) ═══════ */
+    .collection-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+    }
+    .collection-item { position: relative; overflow: hidden; cursor: pointer; }
+    .collection-item img {
+      width: 100%; aspect-ratio: 2/3; object-fit: cover;
+      filter: grayscale(75%); transition: filter 0.6s ease, transform 0.8s ease;
+    }
+    .collection-item:hover img { filter: grayscale(20%); transform: scale(1.02); }
+    .collection-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 40px 20px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+      text-align: center;
+    }
+    .collection-item-label span {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: #fff;
+    }
 
     /* ═══════ CTA ═══════ */
     .cta-section { text-align: center; padding: 160px 48px; max-width: 1400px; margin: 0 auto; }
@@ -420,24 +456,31 @@
     /* ═══════ RESPONSIVE ═══════ */
     @media (max-width: 1024px) {
       .catalog-grid { grid-template-columns: 1fr 1fr; }
+      .collection-grid { grid-template-columns: 1fr 1fr; }
+      .collection-item:last-child { display: none; }
       .product-layout { grid-template-columns: 1fr; gap: 48px; }
     }
+
     @media (max-width: 768px) {
       .header-inner { padding: 0 24px; }
       .wordmark { font-size: 1rem; letter-spacing: 0.35em; padding: 22px 0 10px; }
       .nav-links, .nav-icons { display: none; }
       .menu-toggle { display: flex; }
-      .hero-content { left: 24px; bottom: 12%; }
       .hero-vertical { display: none; }
+      .hero-content { padding-bottom: 60px; }
       .editorial-grid { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
       section { padding: 80px 24px; }
       .atelier { grid-template-columns: 1fr; gap: 48px; }
+      .collection-grid { grid-template-columns: 1fr; padding: 0 24px; }
+      .collection-item:last-child { display: block; }
       .catalog-header { padding: 120px 24px 32px; flex-direction: column; gap: 16px; align-items: flex-start; }
       .catalog-grid { grid-template-columns: 1fr; padding: 0 24px 80px; }
       .product-header { padding: 120px 24px 24px; }
       .product-layout { padding: 0 24px 80px; }
       .fullwidth-image { height: 50vh; }
       .fullwidth-caption { padding: 24px 24px 0; }
+      .refined-image-section { padding: 60px 24px 0; }
+      .refined-image-wrapper img { height: 40vh; }
       .cta-section { padding: 100px 24px; }
       .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
@@ -500,7 +543,6 @@
       <div class="hero-content">
         <p class="hero-label">Collection 2025</p>
         <h1 class="hero-title">Sur-Mesure</h1>
-        <div class="hero-line"></div>
         <a class="hero-cta" onclick="document.getElementById('sur-mesure').scrollIntoView({behavior:'smooth'})">Découvrir</a>
       </div>
       <div class="hero-vertical">Dimitri Dollou</div>
@@ -547,10 +589,31 @@
 
     <div class="separator"></div>
 
-    <!-- PLEINE LARGEUR 2 -->
-    <div class="fullwidth-section" style="margin-top:80px;">
-      <img src="IMG_0304.jpg" alt="Essayage en atelier" class="fullwidth-image">
-      <p class="fullwidth-caption">Prise de mesures — Consultation privée</p>
+    <!-- PIÈCES SÉLECTIONNÉES -->
+    <section id="pieces">
+      <p class="section-label">Pièces sélectionnées</p>
+      <div class="collection-grid">
+        <div class="collection-item">
+          <img src="IMG_0313.jpg" alt="Robe minimaliste">
+          <div class="collection-item-label"><span>Robe Nº 01</span></div>
+        </div>
+        <div class="collection-item">
+          <img src="IMG_0304.jpg" alt="Corset structuré">
+          <div class="collection-item-label"><span>Bustier Nº 03</span></div>
+        </div>
+        <div class="collection-item">
+          <img src="IMG_0303.jpg" alt="Voile et accessoires">
+          <div class="collection-item-label"><span>Accessoires</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFINED IMAGE AVANT CTA -->
+    <div class="refined-image-section">
+      <div class="refined-image-wrapper">
+        <img src="IMG_0304.jpg" alt="Essayage en atelier">
+      </div>
+      <p class="refined-image-caption">Prise de mesures — Consultation privée</p>
     </div>
 
     <!-- CTA -->
@@ -660,7 +723,7 @@
         {
           id: 'robe-02', name: 'Nº 02', ref: 'DD-R02',
           image: 'IMG_0313.jpg',
-          description: 'Dentelle de Calais appliquée main, manches longues, silhouette en A. Finitions entirely réalisées à l\'atelier.',
+          description: 'Dentelle de Calais appliquée main, manches longues, silhouette en A. Finitions entièrement réalisées à l\'atelier.',
           composition: 'Dentelle de Calais, doublure en mousseline de soie'
         },
         {
@@ -698,7 +761,7 @@
         {
           id: 'bustier-02', name: 'Nº 02', ref: 'DD-B02',
           image: 'IMG_0304.jpg',
-          description: 'Dentelle guipure, structure rigide, baleines intégrées. Silhouette cintrée, port assurée.',
+          description: 'Dentelle guipure, structure rigide, baleines intégrées. Silhouette cintrée, port assuré.',
           composition: 'Guipure de France, doublure en satin, armature acier'
         },
         {
@@ -733,7 +796,7 @@
     ══════════════════════════════════════ */
     function showView(id) {
       document.querySelectorAll('.view').forEach(v => {
-        if (v.id === 'view-product') return; // géré séparément
+        if (v.id === 'view-product') return;
         v.classList.remove('active');
         v.style.display = 'none';
       });
@@ -886,7 +949,6 @@
     function closeCart() {
       document.getElementById('cart-panel').classList.remove('open');
       document.getElementById('cart-overlay').classList.remove('open');
-      // Ne réactiver le scroll que si le produit n'est pas ouvert
       if (!document.getElementById('view-product').classList.contains('active')) {
         document.body.style.overflow = '';
       }
@@ -980,7 +1042,7 @@
     }, { passive: true });
 
     /* ══════════════════════════════════════
-       RACCOURCI CLAVIER — ÉCHAP POUR FERMER
+       RACCOURCI CLAVIER — ÉCHAP
     ══════════════════════════════════════ */
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
