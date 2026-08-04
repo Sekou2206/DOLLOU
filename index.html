@@ -9,687 +9,454 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    ::selection {
-      background: #000;
-      color: #fff;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background: #000; color: #fff; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      color: #000;
-      background: #fff;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Inter', sans-serif; font-weight: 300; color: #000;
+      background: #fff; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* ─── HEADER ─── */
+    /* ═══════ HEADER ═══════ */
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
       transition: transform 0.4s ease;
     }
-
-    .header-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 48px; }
     .wordmark {
-      text-align: center;
-      padding: 28px 0 8px;
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.35rem;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
-      color: #000;
+      text-align: center; padding: 28px 0 8px;
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 1.35rem; letter-spacing: 0.45em; text-transform: uppercase; color: #000;
     }
-
     .nav-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 20px;
-      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding-bottom: 20px; position: relative;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #000;
-      text-decoration: none;
-      position: relative;
-      transition: opacity 0.3s ease;
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.68rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: #000;
+      text-decoration: none; position: relative; transition: opacity 0.3s ease; cursor: pointer;
     }
-
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 0.5px;
-      background: #000;
-      transition: width 0.4s ease;
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0;
+      height: 0.5px; background: #000; transition: width 0.4s ease;
     }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
+    .nav-links a:hover::after { width: 100%; }
     .nav-icons {
-      position: absolute;
-      right: 48px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
+      position: absolute; right: 48px; display: flex; align-items: center; gap: 20px;
     }
-
     .nav-icons button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #000;
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
-      display: flex;
-      align-items: center;
+      background: none; border: none; cursor: pointer; color: #000;
+      opacity: 0.5; transition: opacity 0.3s ease; display: flex; align-items: center; position: relative;
     }
-
-    .nav-icons button:hover {
-      opacity: 1;
+    .nav-icons button:hover { opacity: 1; }
+    .cart-badge {
+      position: absolute; top: -5px; right: -7px; width: 14px; height: 14px;
+      background: #000; color: #fff; font-size: 7px; font-family: 'Inter', sans-serif;
+      border-radius: 50%; display: none; align-items: center; justify-content: center; font-weight: 400;
     }
+    .cart-badge.visible { display: flex; }
+    .menu-toggle { display: none; position: absolute; right: 48px; background: none; border: none; cursor: pointer; color: #000; }
 
-    .menu-toggle {
-      display: none;
-      position: absolute;
-      right: 48px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #000;
-    }
-
-    /* ─── HERO ─── */
+    /* ═══════ HERO ═══════ */
     .hero {
-      width: 100%;
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      width: 100%; height: 100vh; position: relative; overflow: hidden;
     }
-
     .hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%) contrast(1.05);
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; filter: grayscale(100%) contrast(1.05);
     }
-
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 40%, transparent 100%);
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 35%, transparent 60%);
     }
-
     .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding-bottom: 80px;
+      position: absolute; bottom: 14%; left: 48px; z-index: 2;
     }
-
     .hero-label {
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px;
     }
-
     .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: #fff;
-      margin-bottom: 32px;
-    }
-
-    .hero-cta {
-      display: inline-block;
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.72rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 4px;
-    }
-
-    .hero-cta::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0.5px;
-      background: rgba(255,255,255,0.6);
-      transition: background 0.3s ease;
-    }
-
-    .hero-cta:hover::after {
-      background: #fff;
-    }
-
-    /* ─── SECTIONS GÉNÉRALES ─── */
-    section {
-      padding: 120px 48px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.35);
-      margin-bottom: 48px;
-      text-align: center;
-    }
-
-    /* ─── GRILLE ÉDITORIALE 2 COLONNES ─── */
-    .editorial-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      padding: 120px 48px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .editorial-block {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .editorial-block img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      filter: grayscale(80%) contrast(1.02);
-      transition: filter 0.6s ease, transform 0.8s ease;
-    }
-
-    .editorial-block:hover img {
-      filter: grayscale(30%) contrast(1);
-      transform: scale(1.02);
-    }
-
-    .editorial-caption {
-      text-align: center;
-      padding-top: 24px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.68rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #000;
-    }
-
-    /* ─── PLEINE LARGEUR ─── */
-    .fullwidth-section {
-      padding: 0;
-      max-width: 100%;
-      margin: 0;
-    }
-
-    .fullwidth-image {
-      width: 100%;
-      height: 80vh;
-      object-fit: cover;
-      filter: grayscale(90%) contrast(1.03);
-      display: block;
-    }
-
-    .fullwidth-caption {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 32px 48px 0;
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,0.4);
-    }
-
-    /* ─── L'ATELIER ─── */
-    .atelier {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .atelier-img-wrapper {
-      overflow: hidden;
-    }
-
-    .atelier-img-wrapper img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      filter: grayscale(70%);
-    }
-
-    .atelier-text {
-      padding: 40px 0;
-    }
-
-    .atelier-text h2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.4rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-      color: #000;
-    }
-
-    .atelier-text p {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-style: italic;
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: rgba(0,0,0,0.6);
-      margin-bottom: 40px;
-    }
-
-    .atelier-text p:last-of-type {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0.3em; text-transform: uppercase; color: #fff;
       margin-bottom: 0;
     }
+    .hero-line {
+      width: 48px; height: 0.5px; background: rgba(255,255,255,0.4); margin: 28px 0;
+    }
+    .hero-cta {
+      display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #fff; text-decoration: none; position: relative; padding-bottom: 4px; cursor: pointer;
+    }
+    .hero-cta::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%;
+      height: 0.5px; background: rgba(255,255,255,0.5); transition: background 0.3s ease;
+    }
+    .hero-cta:hover::after { background: #fff; }
+    .hero-vertical {
+      position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+      writing-mode: vertical-rl; font-family: 'Playfair Display', serif;
+      font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2); z-index: 2;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 2;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+    }
 
+    /* ═══════ VIEWS ═══════ */
+    .view { opacity: 0; transition: opacity 0.45s ease; }
+    .view.active { opacity: 1; }
+
+    /* ═══════ SECTION COMMUNE ═══════ */
+    section { padding: 120px 48px; max-width: 1400px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.65rem;
+      letter-spacing: 0.3em; text-transform: uppercase; color: rgba(0,0,0,0.35);
+      margin-bottom: 48px; text-align: center;
+    }
+
+    /* ═══════ ÉDITORIAL GRID ═══════ */
+    .editorial-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      padding: 120px 48px; max-width: 1400px; margin: 0 auto;
+    }
+    .editorial-block { position: relative; overflow: hidden; cursor: pointer; }
+    .editorial-block img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      filter: grayscale(80%) contrast(1.02); transition: filter 0.6s ease, transform 0.8s ease;
+    }
+    .editorial-block:hover img { filter: grayscale(30%) contrast(1); transform: scale(1.02); }
+    .editorial-caption {
+      text-align: center; padding-top: 24px;
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.68rem;
+      letter-spacing: 0.3em; text-transform: uppercase; color: #000;
+    }
+    .editorial-sub {
+      text-align: center; padding-top: 6px;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.6rem;
+      letter-spacing: 0.15em; color: rgba(0,0,0,0.3); transition: color 0.3s ease;
+    }
+    .editorial-block:hover .editorial-sub { color: rgba(0,0,0,0.6); }
+
+    /* ═══════ PLEINE LARGEUR ═══════ */
+    .fullwidth-section { padding: 0; max-width: 100%; margin: 0; }
+    .fullwidth-image {
+      width: 100%; height: 80vh; object-fit: cover;
+      filter: grayscale(90%) contrast(1.03); display: block;
+    }
+    .fullwidth-caption {
+      max-width: 1400px; margin: 0 auto; padding: 32px 48px 0; text-align: center;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.68rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: rgba(0,0,0,0.4);
+    }
+
+    /* ═══════ ATELIER ═══════ */
+    .atelier { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .atelier-img-wrapper { overflow: hidden; }
+    .atelier-img-wrapper img { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(70%); }
+    .atelier-text { padding: 40px 0; }
+    .atelier-text h2 {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.4rem;
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px; color: #000;
+    }
+    .atelier-text p {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
+      font-size: 1.05rem; line-height: 1.9; color: rgba(0,0,0,0.6); margin-bottom: 40px;
+    }
+    .atelier-text p:last-of-type { margin-bottom: 0; }
     .atelier-link {
-      display: inline-block;
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #000;
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 4px;
-      margin-top: 40px;
+      display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #000; text-decoration: none; position: relative; padding-bottom: 4px; margin-top: 40px;
     }
-
     .atelier-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0.5px;
-      background: rgba(0,0,0,0.4);
-      transition: background 0.3s ease;
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%;
+      height: 0.5px; background: rgba(0,0,0,0.4); transition: background 0.3s ease;
     }
+    .atelier-link:hover::after { background: #000; }
 
-    .atelier-link:hover::after {
-      background: #000;
-    }
+    .separator { width: 40px; height: 0.5px; background: rgba(0,0,0,0.15); margin: 0 auto; }
 
-    /* ─── COLLECTION GRILLE ─── */
-    .collection-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 24px;
-    }
-
-    .collection-item {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .collection-item img {
-      width: 100%;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      filter: grayscale(75%);
-      transition: filter 0.6s ease, transform 0.8s ease;
-    }
-
-    .collection-item:hover img {
-      filter: grayscale(20%);
-      transform: scale(1.02);
-    }
-
-    .collection-item-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 40px 20px 20px;
-      background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
-      text-align: center;
-    }
-
-    .collection-item-label span {
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    /* ─── CTA RENDEZ-VOUS ─── */
-    .cta-section {
-      text-align: center;
-      padding: 160px 48px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
+    /* ═══════ CTA ═══════ */
+    .cta-section { text-align: center; padding: 160px 48px; max-width: 1400px; margin: 0 auto; }
     .cta-section h2 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      color: #000;
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem); letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 16px; color: #000;
     }
-
     .cta-section p {
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: rgba(0,0,0,0.4);
-      margin-bottom: 48px;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.75rem;
+      letter-spacing: 0.15em; color: rgba(0,0,0,0.4); margin-bottom: 48px;
     }
-
     .cta-button {
-      display: inline-block;
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #fff;
-      background: #000;
-      border: none;
-      padding: 18px 56px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      text-decoration: none;
+      display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #fff; background: #000; border: none; padding: 18px 56px;
+      cursor: pointer; transition: background 0.3s ease; text-decoration: none;
+    }
+    .cta-button:hover { background: #222; }
+
+    /* ═══════ CATALOGUE ═══════ */
+    .catalog-header {
+      padding: 140px 48px 48px; max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .catalog-back {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.68rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: #000;
+      text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+      background: none; border: none; transition: opacity 0.3s ease;
+    }
+    .catalog-back:hover { opacity: 0.5; }
+    .catalog-title {
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 0.3em; text-transform: uppercase;
+    }
+    .catalog-count {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.6rem;
+      letter-spacing: 0.15em; color: rgba(0,0,0,0.35);
+    }
+    .catalog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      padding: 0 48px 120px; max-width: 1400px; margin: 0 auto;
+    }
+    .catalog-item { position: relative; overflow: hidden; cursor: pointer; }
+    .catalog-item img {
+      width: 100%; aspect-ratio: 2/3; object-fit: cover;
+      filter: grayscale(75%); transition: filter 0.6s ease, transform 0.8s ease;
+    }
+    .catalog-item:hover img { filter: grayscale(20%); transform: scale(1.02); }
+    .catalog-item-info { padding: 20px 0; }
+    .catalog-item-name {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.68rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: #000;
+    }
+    .catalog-item-ref {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.6rem;
+      letter-spacing: 0.15em; color: rgba(0,0,0,0.3); margin-top: 4px;
     }
 
-    .cta-button:hover {
-      background: #222;
+    /* ═══════ PRODUCT DETAIL ═══════ */
+    #view-product {
+      position: fixed; inset: 0; z-index: 150; background: #fff;
+      overflow-y: auto; transform: translateX(100%);
+      transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    #view-product.active { transform: translateX(0); }
+    .product-header {
+      padding: 120px 48px 32px; max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .product-layout {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px;
+      padding: 0 48px 120px; max-width: 1400px; margin: 0 auto; align-items: start;
+    }
+    .product-image-wrapper { overflow: hidden; }
+    .product-image-wrapper img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(60%);
+    }
+    .product-info { padding-top: 20px; }
+    .product-category {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.6rem;
+      letter-spacing: 0.3em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 20px;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px;
+    }
+    .product-line { width: 32px; height: 0.5px; background: rgba(0,0,0,0.2); margin-bottom: 32px; }
+    .product-description {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
+      font-size: 1rem; line-height: 1.9; color: rgba(0,0,0,0.55); margin-bottom: 48px;
+    }
+    .product-composition-label {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.6rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: rgba(0,0,0,0.3); margin-bottom: 8px;
+    }
+    .product-composition {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.75rem;
+      letter-spacing: 0.08em; color: rgba(0,0,0,0.5); margin-bottom: 56px;
+    }
+    .product-add-btn {
+      display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #fff; background: #000; border: none; padding: 18px 56px;
+      cursor: pointer; transition: background 0.3s ease; width: 100%; text-align: center;
+    }
+    .product-add-btn:hover { background: #222; }
+    .product-note {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.58rem;
+      letter-spacing: 0.1em; color: rgba(0,0,0,0.25); margin-top: 20px; text-align: center;
     }
 
-    /* ─── SÉPARATEUR ─── */
-    .separator {
-      width: 40px;
-      height: 0.5px;
-      background: rgba(0,0,0,0.15);
-      margin: 0 auto;
+    /* ═══════ CART PANEL ═══════ */
+    #cart-overlay {
+      position: fixed; inset: 0; z-index: 199; background: rgba(0,0,0,0.25);
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    #cart-overlay.open { opacity: 1; pointer-events: all; }
+    #cart-panel {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 90vw;
+      z-index: 200; background: #fff; overflow-y: auto;
+      transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+      display: flex; flex-direction: column;
+    }
+    #cart-panel.open { transform: translateX(0); }
+    .cart-header {
+      padding: 32px 32px 24px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    }
+    .cart-title {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 0.9rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .cart-close {
+      background: none; border: none; cursor: pointer; color: #000; opacity: 0.4;
+      transition: opacity 0.3s ease; display: flex; align-items: center;
+    }
+    .cart-close:hover { opacity: 1; }
+    .cart-items { flex: 1; padding: 24px 32px; }
+    .cart-empty {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.7rem;
+      letter-spacing: 0.15em; color: rgba(0,0,0,0.3); text-align: center; padding: 60px 0;
+    }
+    .cart-item {
+      display: flex; gap: 16px; padding: 20px 0;
+      border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    }
+    .cart-item-img {
+      width: 64px; height: 85px; object-fit: cover; filter: grayscale(50%); flex-shrink: 0;
+    }
+    .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .cart-item-name {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: #000; margin-bottom: 4px;
+    }
+    .cart-item-cat {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.58rem;
+      letter-spacing: 0.1em; color: rgba(0,0,0,0.35);
+    }
+    .cart-item-remove {
+      align-self: center; background: none; border: none; cursor: pointer;
+      color: #000; opacity: 0.25; transition: opacity 0.3s ease; display: flex; align-items: center;
+    }
+    .cart-item-remove:hover { opacity: 0.8; }
+    .cart-footer { padding: 24px 32px 32px; border-top: 0.5px solid rgba(0,0,0,0.08); }
+    .cart-checkout-btn {
+      display: block; width: 100%; font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #fff; background: #000; border: none; padding: 18px 56px;
+      cursor: pointer; transition: background 0.3s ease; text-align: center;
+    }
+    .cart-checkout-btn:hover { background: #222; }
+    .cart-checkout-note {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.55rem;
+      letter-spacing: 0.1em; color: rgba(0,0,0,0.2); text-align: center; margin-top: 12px;
     }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: #000;
-      color: #fff;
-      padding: 60px 48px;
+    /* ═══════ TOAST ═══════ */
+    .toast {
+      position: fixed; bottom: 36px; left: 50%; z-index: 300;
+      transform: translateX(-50%) translateY(16px);
+      background: #000; color: #fff; padding: 14px 36px;
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
     }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    /* ═══════ FOOTER ═══════ */
+    footer { background: #000; color: #fff; padding: 60px 48px; }
     .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      max-width: 1400px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
     .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 0.85rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 0.85rem;
+      letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.5);
     }
-
-    .footer-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
+    .footer-links { display: flex; gap: 32px; list-style: none; }
     .footer-links a {
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      text-decoration: none;
-      transition: color 0.3s ease;
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.3s ease;
     }
-
-    .footer-links a:hover {
-      color: rgba(255,255,255,0.8);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 16px;
-    }
-
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    .footer-social { display: flex; gap: 16px; }
     .footer-social a {
-      color: rgba(255,255,255,0.3);
-      transition: color 0.3s ease;
-      display: flex;
-      align-items: center;
+      color: rgba(255,255,255,0.3); transition: color 0.3s ease; display: flex; align-items: center;
     }
+    .footer-social a:hover { color: rgba(255,255,255,0.7); }
 
-    .footer-social a:hover {
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* ─── MOBILE NAV OVERLAY ─── */
+    /* ═══════ MOBILE NAV ═══════ */
     .mobile-nav {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      transform: translateY(-100%);
-      transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+      position: fixed; inset: 0; z-index: 200; background: #fff;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+      transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
     }
-
-    .mobile-nav.open {
-      transform: translateY(0);
-    }
-
+    .mobile-nav.open { transform: translateY(0); }
     .mobile-nav a {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.2rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #000;
-      text-decoration: none;
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.2rem;
+      letter-spacing: 0.3em; text-transform: uppercase; color: #000;
+      text-decoration: none; opacity: 0.7; transition: opacity 0.3s ease; cursor: pointer;
     }
-
-    .mobile-nav a:hover {
-      opacity: 1;
-    }
-
+    .mobile-nav a:hover { opacity: 1; }
     .mobile-nav-close {
-      position: absolute;
-      top: 28px;
-      right: 48px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #000;
+      position: absolute; top: 28px; right: 48px;
+      background: none; border: none; cursor: pointer; color: #000;
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* ═══════ RESPONSIVE ═══════ */
     @media (max-width: 1024px) {
-      .collection-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .collection-item:last-child {
-        display: none;
-      }
+      .catalog-grid { grid-template-columns: 1fr 1fr; }
+      .product-layout { grid-template-columns: 1fr; gap: 48px; }
     }
-
     @media (max-width: 768px) {
-      .header-inner {
-        padding: 0 24px;
-      }
-
-      .wordmark {
-        font-size: 1rem;
-        letter-spacing: 0.35em;
-        padding: 22px 0 10px;
-      }
-
-      .nav-links, .nav-icons {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: flex;
-      }
-
-      .hero-title {
-        letter-spacing: 0.3em;
-      }
-
-      .hero-content {
-        padding-bottom: 60px;
-      }
-
-      .editorial-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-        padding: 80px 24px;
-      }
-
-      section {
-        padding: 80px 24px;
-      }
-
-      .atelier {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .collection-grid {
-        grid-template-columns: 1fr;
-        padding: 0 24px;
-      }
-
-      .collection-item:last-child {
-        display: block;
-      }
-
-      .fullwidth-image {
-        height: 50vh;
-      }
-
-      .fullwidth-caption {
-        padding: 24px 24px 0;
-      }
-
-      .cta-section {
-        padding: 100px 24px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 24px;
-        text-align: center;
-      }
-
-      .footer-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      footer {
-        padding: 48px 24px;
-      }
+      .header-inner { padding: 0 24px; }
+      .wordmark { font-size: 1rem; letter-spacing: 0.35em; padding: 22px 0 10px; }
+      .nav-links, .nav-icons { display: none; }
+      .menu-toggle { display: flex; }
+      .hero-content { left: 24px; bottom: 12%; }
+      .hero-vertical { display: none; }
+      .editorial-grid { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+      section { padding: 80px 24px; }
+      .atelier { grid-template-columns: 1fr; gap: 48px; }
+      .catalog-header { padding: 120px 24px 32px; flex-direction: column; gap: 16px; align-items: flex-start; }
+      .catalog-grid { grid-template-columns: 1fr; padding: 0 24px 80px; }
+      .product-header { padding: 120px 24px 24px; }
+      .product-layout { padding: 0 24px 80px; }
+      .fullwidth-image { height: 50vh; }
+      .fullwidth-caption { padding: 24px 24px 0; }
+      .cta-section { padding: 100px 24px; }
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      footer { padding: 48px 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- ═══ HEADER ═══ -->
   <header id="mainHeader">
     <div class="header-inner">
       <div class="wordmark">Dimitri Dollou</div>
       <div class="nav-row">
         <ul class="nav-links">
-          <li><a href="#collections">Collections</a></li>
-          <li><a href="#sur-mesure">Sur-Mesure</a></li>
-          <li><a href="#atelier">Maison</a></li>
-          <li><a href="#boutique">Boutique</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a onclick="navigateHome('collections')">Collections</a></li>
+          <li><a onclick="navigateHome('sur-mesure')">Sur-Mesure</a></li>
+          <li><a onclick="navigateHome('atelier')">Maison</a></li>
+          <li><a onclick="navigateHome('contact')">Contact</a></li>
         </ul>
         <div class="nav-icons">
           <button aria-label="Recherche">
@@ -698,8 +465,9 @@
           <button aria-label="Compte">
             <iconify-icon icon="lucide:user" width="16" height="16"></iconify-icon>
           </button>
-          <button aria-label="Rendez-vous">
-            <iconify-icon icon="lucide:calendar" width="16" height="16"></iconify-icon>
+          <button aria-label="Panier" id="cartToggle">
+            <iconify-icon icon="lucide:shopping-bag" width="16" height="16"></iconify-icon>
+            <span class="cart-badge" id="cartBadge">0</span>
           </button>
         </div>
         <button class="menu-toggle" id="menuToggle" aria-label="Menu">
@@ -709,135 +477,495 @@
     </div>
   </header>
 
-  <!-- MOBILE NAV -->
+  <!-- ═══ MOBILE NAV ═══ -->
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-nav-close" id="mobileNavClose" aria-label="Fermer">
       <iconify-icon icon="lucide:x" width="24" height="24"></iconify-icon>
     </button>
-    <a href="#collections" onclick="closeMobileNav()">Collections</a>
-    <a href="#sur-mesure" onclick="closeMobileNav()">Sur-Mesure</a>
-    <a href="#atelier" onclick="closeMobileNav()">Maison</a>
-    <a href="#boutique" onclick="closeMobileNav()">Boutique</a>
-    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a onclick="navigateHome('collections'); closeMobileNav();">Collections</a>
+    <a onclick="navigateHome('sur-mesure'); closeMobileNav();">Sur-Mesure</a>
+    <a onclick="navigateHome('atelier'); closeMobileNav();">Maison</a>
+    <a onclick="navigateHome('contact'); closeMobileNav();">Contact</a>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <img src="IMG_0314.jpg" alt="Silhouette de mariée" class="hero-img">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-label">Collection 2025</p>
-      <h1 class="hero-title">Sur-Mesure</h1>
-      <a href="#collections" class="hero-cta">Découvrir</a>
-    </div>
-  </section>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ VIEW: HOME ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="view-home" class="view active" style="display:block;">
 
-  <!-- GRILLE ÉDITORIALE -->
-  <div class="editorial-grid" id="collections">
-    <div class="editorial-block">
-      <img src="IMG_0311.jpg" alt="Robe de mariée">
-      <div class="editorial-caption">Robes de Mariée</div>
+    <!-- HERO -->
+    <section class="hero" style="padding:0; max-width:100%; margin:0;">
+      <img src="IMG_0314.jpg" alt="Silhouette de mariée" class="hero-img">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-label">Collection 2025</p>
+        <h1 class="hero-title">Sur-Mesure</h1>
+        <div class="hero-line"></div>
+        <a class="hero-cta" onclick="document.getElementById('sur-mesure').scrollIntoView({behavior:'smooth'})">Découvrir</a>
+      </div>
+      <div class="hero-vertical">Dimitri Dollou</div>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ÉDITORIAL GRID -->
+    <div class="editorial-grid" id="collections">
+      <div class="editorial-block" onclick="openCatalog('robes')">
+        <img src="IMG_0311.jpg" alt="Robes de mariée">
+        <div class="editorial-caption">Robes de Mariée</div>
+        <div class="editorial-sub">Voir le catalogue</div>
+      </div>
+      <div class="editorial-block" id="sur-mesure" onclick="openCatalog('bustiers')">
+        <img src="IMG_0303.jpg" alt="Bustier structuré">
+        <div class="editorial-caption">Bustiers</div>
+        <div class="editorial-sub">Voir le catalogue</div>
+      </div>
     </div>
-    <div class="editorial-block" id="sur-mesure">
-      <img src="IMG_0303.jpg" alt="Bustier structuré">
-      <div class="editorial-caption">Bustiers</div>
+
+    <!-- PLEINE LARGEUR -->
+    <div class="fullwidth-section">
+      <img src="IMG_0315.jpg" alt="Détail dentelle et soie" class="fullwidth-image">
+      <p class="fullwidth-caption">Dentelle de Calais — Pièce unique</p>
+    </div>
+
+    <!-- ATELIER -->
+    <section id="atelier">
+      <div class="atelier">
+        <div class="atelier-img-wrapper">
+          <img src="IMG_0301.jpg" alt="Portrait du styliste-modéliste">
+        </div>
+        <div class="atelier-text">
+          <div class="section-label" style="text-align:left;">L'Atelier</div>
+          <h2>Dimitri Dollou</h2>
+          <p>Chaque pièce naît d'un dialogue entre la matière et le geste. Le sur-mesure n'est pas un service, c'est une exigence — celle de concevoir une robe qui n'existe nulle part ailleurs.</p>
+          <p>Formé aux savoir-faire de la haute couture parisienne, Dimitri Dollou fonde sa maison sur une conviction : la robe de mariée doit être une architecture de soi.</p>
+          <a href="#" class="atelier-link">Consultation privée</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="separator"></div>
+
+    <!-- PLEINE LARGEUR 2 -->
+    <div class="fullwidth-section" style="margin-top:80px;">
+      <img src="IMG_0304.jpg" alt="Essayage en atelier" class="fullwidth-image">
+      <p class="fullwidth-caption">Prise de mesures — Consultation privée</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section" id="contact">
+      <h2>Prise de Rendez-vous</h2>
+      <p>Consultation sur rendez-vous uniquement</p>
+      <a href="#" class="cta-button">Réserver</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">Dimitri Dollou</div>
+        <ul class="footer-links">
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+        </ul>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <iconify-icon icon="lucide:instagram" width="16" height="16"></iconify-icon>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <iconify-icon icon="simple-icons:pinterest" width="14" height="14"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ VIEW: CATALOGUE ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="view-catalog" class="view" style="display:none;">
+    <div class="catalog-header">
+      <button class="catalog-back" onclick="goHome()">
+        <iconify-icon icon="lucide:arrow-left" width="14" height="14"></iconify-icon>
+        Retour
+      </button>
+      <span class="catalog-title" id="catalogTitle"></span>
+      <span class="catalog-count" id="catalogCount"></span>
+    </div>
+    <div class="catalog-grid" id="catalogGrid"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ VIEW: PRODUCT DETAIL ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="view-product">
+    <div class="product-header">
+      <button class="catalog-back" id="productBack">
+        <iconify-icon icon="lucide:arrow-left" width="14" height="14"></iconify-icon>
+        Retour
+      </button>
+      <span style="font-family:'Playfair Display',serif; font-weight:400; font-size:0.7rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(0,0,0,0.3);">Dimitri Dollou</span>
+    </div>
+    <div class="product-layout">
+      <div class="product-image-wrapper">
+        <img id="productImage" src="" alt="">
+      </div>
+      <div class="product-info">
+        <p class="product-category" id="productCategory"></p>
+        <h2 class="product-name" id="productName"></h2>
+        <div class="product-line"></div>
+        <p class="product-description" id="productDescription"></p>
+        <p class="product-composition-label">Composition</p>
+        <p class="product-composition" id="productComposition"></p>
+        <button class="product-add-btn" id="productAddBtn">Ajouter au panier</button>
+        <p class="product-note">Pièce unique — Sur-mesure</p>
+      </div>
     </div>
   </div>
 
-  <!-- PLEINE LARGEUR -->
-  <div class="fullwidth-section">
-    <img src="IMG_0315.jpg" alt="Détail dentelle et soie" class="fullwidth-image">
-    <p class="fullwidth-caption">Dentelle de Calais — Pièce unique</p>
+  <!-- ═══ CART OVERLAY ═══ -->
+  <div id="cart-overlay" onclick="closeCart()"></div>
+
+  <!-- ═══ CART PANEL ═══ -->
+  <div id="cart-panel">
+    <div class="cart-header">
+      <span class="cart-title">Panier</span>
+      <button class="cart-close" onclick="closeCart()" aria-label="Fermer">
+        <iconify-icon icon="lucide:x" width="18" height="18"></iconify-icon>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <button class="cart-checkout-btn" onclick="checkout()">Procéder au paiement</button>
+      <p class="cart-checkout-note">Paiement sécurisé par Stripe</p>
+    </div>
   </div>
 
-  <!-- L'ATELIER -->
-  <section id="atelier">
-    <div class="atelier">
-      <div class="atelier-img-wrapper">
-        <img src="IMG_0311.jpg" alt="Portrait du styliste-modéliste">
-      </div>
-      <div class="atelier-text">
-        <div class="section-label" style="text-align:left;">L'Atelier</div>
-        <h2>Dimitri Dollou</h2>
-        <p>Chaque pièce naît d'un dialogue entre la matière et le geste. Le sur-mesure n'est pas un service, c'est une exigence — celle de concevoir une robe qui n'existe nulle part ailleurs.</p>
-        <p>Formé aux savoir-faire de la haute couture parisienne, Dimitri Dollou fonde sa maison sur une conviction : la robe de mariée doit être une architecture de soi.</p>
-        <a href="#" class="atelier-link">Consultation privée</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SÉPARATEUR -->
-  <div class="separator"></div>
-
-  <!-- COLLECTION GRILLE -->
-  <section id="boutique">
-    <p class="section-label">Pièces sélectionnées</p>
-    <div class="collection-grid">
-      <div class="collection-item">
-        <img src="IMG_0313.jpg" alt="Robe minimaliste">
-        <div class="collection-item-label"><span>Robe Nº 01</span></div>
-      </div>
-      <div class="collection-item">
-        <img src="IMG_0304.jpg" alt="Corset structuré">
-        <div class="collection-item-label"><span>Bustier Nº 03</span></div>
-      </div>
-      <div class="collection-item">
-        <img src="IMG_0303.jpg" alt="Voile et accessoires">
-        <div class="collection-item-label"><span>Accessoires</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PLEINE LARGEUR 2 -->
-  <div class="fullwidth-section" style="margin-top: 80px;">
-    <img src="IMG_0312.jpg" alt="Essayage en atelier" class="fullwidth-image">
-    <p class="fullwidth-caption">Prise de mesures — Consultation privée</p>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-section" id="contact">
-    <h2>Prise de Rendez-vous</h2>
-    <p>Consultation sur rendez-vous uniquement</p>
-    <a href="#" class="cta-button">Réserver</a>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">Dimitri Dollou</div>
-      <ul class="footer-links">
-        <li><a href="#">Mentions légales</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Politique de confidentialité</a></li>
-      </ul>
-      <div class="footer-social">
-        <a href="#" aria-label="Instagram">
-          <iconify-icon icon="lucide:instagram" width="16" height="16"></iconify-icon>
-        </a>
-        <a href="#" aria-label="Pinterest">
-          <iconify-icon icon="simple-icons:pinterest" width="14" height="14"></iconify-icon>
-        </a>
-      </div>
-    </div>
-  </footer>
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast" id="toast"></div>
 
   <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileNavClose = document.getElementById('mobileNavClose');
+    /* ══════════════════════════════════════
+       DONNÉES PRODUITS
+    ══════════════════════════════════════ */
+    const products = {
+      robes: [
+        {
+          id: 'robe-01', name: 'Nº 01', ref: 'DD-R01',
+          image: 'IMG_0311.jpg',
+          description: 'Drapé en soie sauvage, dos nu, jupe évasée. Coupe sculptée par des plis naturels qui épousent le mouvement du corps.',
+          composition: 'Soie sauvage, doublure en crêpe de soie'
+        },
+        {
+          id: 'robe-02', name: 'Nº 02', ref: 'DD-R02',
+          image: 'IMG_0313.jpg',
+          description: 'Dentelle de Calais appliquée main, manches longues, silhouette en A. Finitions entirely réalisées à l\'atelier.',
+          composition: 'Dentelle de Calais, doublure en mousseline de soie'
+        },
+        {
+          id: 'robe-03', name: 'Nº 03', ref: 'DD-R03',
+          image: 'IMG_0315.jpg',
+          description: 'Crêpe de laine, col bateau, queue de pie. Architecture minimaliste où la coupe fait seule la sophistication.',
+          composition: 'Crêpe de laine, doublure en soie naturelle'
+        },
+        {
+          id: 'robe-04', name: 'Nº 04', ref: 'DD-R04',
+          image: 'IMG_0303.jpg',
+          description: 'Mikado structuré, épaules dénudées, jupe droite. Volume géométrique et allure sculpturale.',
+          composition: 'Mikado d\'Italie, doublure en satin de coton'
+        },
+        {
+          id: 'robe-05', name: 'Nº 05', ref: 'DD-R05',
+          image: 'IMG_0304.jpg',
+          description: 'Tulle et chantilly, col rond, jupe fluide. Légèreté et mouvement pour une silhouette aérienne.',
+          composition: 'Tulle de France, chantilly, doublure en soie'
+        },
+        {
+          id: 'robe-06', name: 'Nº 06', ref: 'DD-R06',
+          image: 'IMG_0301.jpg',
+          description: 'Satin duchesse, plis abdominaux sculptés, ouverture dorsale. Pièce d\'exception à la présence incontestable.',
+          composition: 'Satin duchesse, doublure en crêpe de soie'
+        }
+      ],
+      bustiers: [
+        {
+          id: 'bustier-01', name: 'Nº 01', ref: 'DD-B01',
+          image: 'IMG_0303.jpg',
+          description: 'Broderie perlée sur tulle, corseterie traditionnelle, fermeture par lacets. Structure intérieure en baleines d\'acier.',
+          composition: 'Tulle brodé, soie, baleines d\'acier'
+        },
+        {
+          id: 'bustier-02', name: 'Nº 02', ref: 'DD-B02',
+          image: 'IMG_0304.jpg',
+          description: 'Dentelle guipure, structure rigide, baleines intégrées. Silhouette cintrée, port assurée.',
+          composition: 'Guipure de France, doublure en satin, armature acier'
+        },
+        {
+          id: 'bustier-03', name: 'Nº 03', ref: 'DD-B03',
+          image: 'IMG_0313.jpg',
+          description: 'Satin duchesse lisse, finition moulée, fermeture arrière dissimulée. Ligne pure, sans ornement superflu.',
+          composition: 'Satin duchesse, doublure en soie, baleines flexibles'
+        },
+        {
+          id: 'bustier-04', name: 'Nº 04', ref: 'DD-B04',
+          image: 'IMG_0315.jpg',
+          description: 'Organdi plissé, volume architectural, armature interne. Sculpture textile portée comme une deuxième peau.',
+          composition: 'Organdi plissé, armature sur mesure, doublure soie'
+        }
+      ]
+    };
 
-    menuToggle.addEventListener('click', () => {
-      mobileNav.classList.add('open');
+    const categoryLabels = {
+      robes: 'Robes de Mariée',
+      bustiers: 'Bustiers'
+    };
+
+    /* ══════════════════════════════════════
+       ÉTAT
+    ══════════════════════════════════════ */
+    let cart = [];
+    let currentCategory = null;
+    let currentProductId = null;
+
+    /* ══════════════════════════════════════
+       NAVIGATION VUES
+    ══════════════════════════════════════ */
+    function showView(id) {
+      document.querySelectorAll('.view').forEach(v => {
+        if (v.id === 'view-product') return; // géré séparément
+        v.classList.remove('active');
+        v.style.display = 'none';
+      });
+      const target = document.getElementById(id);
+      target.style.display = 'block';
+      window.scrollTo({ top: 0 });
+      void target.offsetWidth;
+      target.classList.add('active');
+    }
+
+    function goHome() {
+      showView('view-home');
+    }
+
+    function navigateHome(sectionId) {
+      showView('view-home');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
+    /* ══════════════════════════════════════
+       CATALOGUE
+    ══════════════════════════════════════ */
+    function openCatalog(category) {
+      currentCategory = category;
+      const items = products[category];
+      document.getElementById('catalogTitle').textContent = categoryLabels[category];
+      document.getElementById('catalogCount').textContent = items.length + ' pièces';
+
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = items.map(item => `
+        <div class="catalog-item" onclick="openProduct('${item.id}')">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="catalog-item-info">
+            <div class="catalog-item-name">${item.name}</div>
+            <div class="catalog-item-ref">${item.ref}</div>
+          </div>
+        </div>
+      `).join('');
+
+      showView('view-catalog');
+    }
+
+    /* ══════════════════════════════════════
+       PRODUIT DÉTAIL
+    ══════════════════════════════════════ */
+    function findProduct(id) {
+      for (const cat of Object.keys(products)) {
+        const found = products[cat].find(p => p.id === id);
+        if (found) return { ...found, category: categoryLabels[cat] };
+      }
+      return null;
+    }
+
+    function openProduct(id) {
+      const product = findProduct(id);
+      if (!product) return;
+      currentProductId = id;
+
+      document.getElementById('productImage').src = product.image;
+      document.getElementById('productImage').alt = product.name;
+      document.getElementById('productCategory').textContent = product.category;
+      document.getElementById('productName').textContent = product.name;
+      document.getElementById('productDescription').textContent = product.description;
+      document.getElementById('productComposition').textContent = product.composition;
+
+      document.getElementById('productAddBtn').onclick = () => addToCart(id);
+
+      const view = document.getElementById('view-product');
+      view.classList.add('active');
+      view.scrollTop = 0;
       document.body.style.overflow = 'hidden';
-    });
+    }
 
-    mobileNavClose.addEventListener('click', closeMobileNav);
-
-    function closeMobileNav() {
-      mobileNav.classList.remove('open');
+    function closeProduct() {
+      const view = document.getElementById('view-product');
+      view.classList.remove('active');
       document.body.style.overflow = '';
     }
 
+    document.getElementById('productBack').addEventListener('click', closeProduct);
+
+    /* ══════════════════════════════════════
+       PANIER
+    ══════════════════════════════════════ */
+    function addToCart(productId) {
+      const product = findProduct(productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      updateCartBadge();
+      renderCart();
+      showToast('Ajouté au panier');
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      updateCartBadge();
+      renderCart();
+    }
+
+    function updateCartBadge() {
+      const badge = document.getElementById('cartBadge');
+      const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+      badge.textContent = total;
+      badge.classList.toggle('visible', total > 0);
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cartItems');
+      const footer = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="cart-empty">Votre panier est vide</p>';
+        footer.style.display = 'none';
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img class="cart-item-img" src="${item.image}" alt="${item.name}">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-cat">${item.category} — ${item.ref}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="Retirer">
+            <iconify-icon icon="lucide:x" width="14" height="14"></iconify-icon>
+          </button>
+        </div>
+      `).join('');
+
+      footer.style.display = 'block';
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById('cart-panel').classList.add('open');
+      document.getElementById('cart-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      document.getElementById('cart-panel').classList.remove('open');
+      document.getElementById('cart-overlay').classList.remove('open');
+      // Ne réactiver le scroll que si le produit n'est pas ouvert
+      if (!document.getElementById('view-product').classList.contains('active')) {
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.getElementById('cartToggle').addEventListener('click', openCart);
+
+    /* ══════════════════════════════════════
+       CHECKOUT — STRIPE
+    ══════════════════════════════════════ */
+    function checkout() {
+      /*
+       * ─── Intégration Stripe Checkout ───
+       *
+       * Remplacer ce bloc par l'appel à votre backend :
+       *
+       * fetch('/create-checkout-session', {
+       *   method: 'POST',
+       *   headers: { 'Content-Type': 'application/json' },
+       *   body: JSON.stringify({
+       *     items: cart.map(item => ({
+       *       id: item.id,
+       *       name: item.name,
+       *       quantity: item.quantity
+       *     }))
+       *   })
+       * })
+       * .then(res => res.json())
+       * .then(session => {
+       *   window.location.href = session.url;
+       * });
+       *
+       * Côté serveur (Node.js) :
+       * const session = await stripe.checkout.sessions.create({
+       *   payment_method_types: ['card'],
+       *   line_items: items.map(i => ({
+       *     price_data: { currency: 'eur', product_data: { name: i.name }, unit_amount: 0 },
+       *     quantity: i.quantity
+       *   })),
+       *   mode: 'payment',
+       *   success_url: 'https://votredomaine.com/merci',
+       *   cancel_url: 'https://votredomaine.com/panier'
+       * });
+       */
+
+      console.log('Checkout Stripe — Articles:', cart);
+      showToast('Redirection vers le paiement');
+    }
+
+    /* ══════════════════════════════════════
+       TOAST
+    ══════════════════════════════════════ */
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE NAV
+    ══════════════════════════════════════ */
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('mobileNavClose').addEventListener('click', closeMobileNav);
+
+    function closeMobileNav() {
+      document.getElementById('mobileNav').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ══════════════════════════════════════
+       HEADER HIDE ON SCROLL
+    ══════════════════════════════════════ */
     let lastScroll = 0;
     const header = document.getElementById('mainHeader');
 
@@ -850,7 +978,21 @@
       }
       lastScroll = currentScroll;
     }, { passive: true });
-  </script>
 
+    /* ══════════════════════════════════════
+       RACCOURCI CLAVIER — ÉCHAP POUR FERMER
+    ══════════════════════════════════════ */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('cart-panel').classList.contains('open')) {
+          closeCart();
+        } else if (document.getElementById('view-product').classList.contains('active')) {
+          closeProduct();
+        } else if (document.getElementById('mobileNav').classList.contains('open')) {
+          closeMobileNav();
+        }
+      }
+    });
+  </script>
 </body>
 </html>
