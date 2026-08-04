@@ -270,9 +270,9 @@
     .catalog-item { position: relative; overflow: hidden; cursor: pointer; }
     .catalog-item img {
       width: 100%; aspect-ratio: 2/3; object-fit: cover;
-      filter: grayscale(75%); transition: filter 0.6s ease, transform 0.8s ease;
+      transition: transform 0.8s ease; /* Grayscale retiré pour laisser la couleur originale */
     }
-    .catalog-item:hover img { filter: grayscale(20%); transform: scale(1.02); }
+    .catalog-item:hover img { transform: scale(1.02); }
     .catalog-item-info { padding: 20px 0; }
     .catalog-item-name {
       font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.68rem;
@@ -295,26 +295,31 @@
       display: flex; align-items: center; justify-content: space-between;
     }
     .product-layout {
-      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 100px;
       padding: 0 48px 120px; max-width: 1400px; margin: 0 auto; align-items: start;
     }
     .product-image-wrapper { overflow: hidden; }
     .product-image-wrapper img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(60%);
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; /* Grayscale retiré */
     }
-    .product-info { padding-top: 20px; }
+    .product-info { 
+      padding-top: 60px; 
+    }
+    @media (min-width: 1025px) {
+      .product-info { position: sticky; top: 100px; }
+    }
     .product-category {
       font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.6rem;
       letter-spacing: 0.3em; text-transform: uppercase; color: rgba(0,0,0,0.35); margin-bottom: 20px;
     }
     .product-name {
-      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.6rem;
-      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 32px;
+      font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px;
     }
-    .product-line { width: 32px; height: 0.5px; background: rgba(0,0,0,0.2); margin-bottom: 32px; }
+    .product-line { width: 40px; height: 0.5px; background: rgba(0,0,0,0.2); margin-bottom: 32px; }
     .product-description {
       font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
-      font-size: 1rem; line-height: 1.9; color: rgba(0,0,0,0.55); margin-bottom: 48px;
+      font-size: 1.1rem; line-height: 2; color: rgba(0,0,0,0.7); margin-bottom: 56px;
     }
     .product-composition-label {
       font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.6rem;
@@ -324,6 +329,29 @@
       font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.75rem;
       letter-spacing: 0.08em; color: rgba(0,0,0,0.5); margin-bottom: 56px;
     }
+    
+    /* MESURES */
+    .product-sizes { margin-bottom: 56px; }
+    .product-sizes-label {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.6rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: rgba(0,0,0,0.3); margin-bottom: 24px;
+    }
+    .size-inputs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .size-group { display: flex; flex-direction: column; gap: 8px; }
+    .size-group label {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.1em; color: rgba(0,0,0,0.5);
+    }
+    .size-group input {
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.85rem;
+      color: #000; background: transparent; border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.15); padding: 8px 0;
+      outline: none; transition: border-color 0.3s ease; width: 100%;
+    }
+    .size-group input:focus { border-color: #000; }
+
     .product-add-btn {
       display: inline-block; font-family: 'Inter', sans-serif; font-weight: 300;
       font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
@@ -372,7 +400,7 @@
       border-bottom: 0.5px solid rgba(0,0,0,0.06);
     }
     .cart-item-img {
-      width: 64px; height: 85px; object-fit: cover; filter: grayscale(50%); flex-shrink: 0;
+      width: 64px; height: 85px; object-fit: cover; flex-shrink: 0;
     }
     .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .cart-item-name {
@@ -382,6 +410,10 @@
     .cart-item-cat {
       font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.58rem;
       letter-spacing: 0.1em; color: rgba(0,0,0,0.35);
+    }
+    .cart-item-dimensions {
+      font-family: 'Inter', sans-serif; font-weight: 200; font-size: 0.55rem;
+      letter-spacing: 0.05em; color: rgba(0,0,0,0.4); margin-top: 6px; font-style: italic;
     }
     .cart-item-remove {
       align-self: center; background: none; border: none; cursor: pointer;
@@ -459,6 +491,7 @@
       .collection-grid { grid-template-columns: 1fr 1fr; }
       .collection-item:last-child { display: none; }
       .product-layout { grid-template-columns: 1fr; gap: 48px; }
+      .product-info { padding-top: 0; }
     }
 
     @media (max-width: 768px) {
@@ -484,6 +517,7 @@
       .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
       footer { padding: 48px 24px; }
+      .size-inputs { grid-template-columns: 1fr; gap: 16px; }
     }
   </style>
 </head>
@@ -680,6 +714,30 @@
         <p class="product-description" id="productDescription"></p>
         <p class="product-composition-label">Composition</p>
         <p class="product-composition" id="productComposition"></p>
+        
+        <!-- NOUVEAU : CHAMPS POUR LES MESURES -->
+        <div class="product-sizes">
+          <p class="product-sizes-label">Vos mesures (en cm)</p>
+          <div class="size-inputs">
+            <div class="size-group">
+              <label for="size-bust">Tour de poitrine</label>
+              <input type="number" id="size-bust" name="bust" placeholder="ex: 90">
+            </div>
+            <div class="size-group">
+              <label for="size-waist">Tour de taille</label>
+              <input type="number" id="size-waist" name="waist" placeholder="ex: 70">
+            </div>
+            <div class="size-group">
+              <label for="size-hips">Tour de hanches</label>
+              <input type="number" id="size-hips" name="hips" placeholder="ex: 95">
+            </div>
+            <div class="size-group">
+              <label for="size-height">Hauteur totale</label>
+              <input type="number" id="size-height" name="height" placeholder="ex: 170">
+            </div>
+          </div>
+        </div>
+
         <button class="product-add-btn" id="productAddBtn">Ajouter au panier</button>
         <p class="product-note">Pièce unique — Sur-mesure</p>
       </div>
@@ -715,63 +773,45 @@
       robes: [
         {
           id: 'robe-01', name: 'Nº 01', ref: 'DD-R01',
-          image: 'IMG_0311.jpg',
+          image: 'robe1.png',
           description: 'Drapé en soie sauvage, dos nu, jupe évasée. Coupe sculptée par des plis naturels qui épousent le mouvement du corps.',
           composition: 'Soie sauvage, doublure en crêpe de soie'
         },
         {
           id: 'robe-02', name: 'Nº 02', ref: 'DD-R02',
-          image: 'IMG_0313.jpg',
+          image: 'robe2.png',
           description: 'Dentelle de Calais appliquée main, manches longues, silhouette en A. Finitions entièrement réalisées à l\'atelier.',
           composition: 'Dentelle de Calais, doublure en mousseline de soie'
         },
         {
           id: 'robe-03', name: 'Nº 03', ref: 'DD-R03',
-          image: 'IMG_0315.jpg',
+          image: 'robe3 .png',
           description: 'Crêpe de laine, col bateau, queue de pie. Architecture minimaliste où la coupe fait seule la sophistication.',
           composition: 'Crêpe de laine, doublure en soie naturelle'
-        },
-        {
-          id: 'robe-04', name: 'Nº 04', ref: 'DD-R04',
-          image: 'IMG_0303.jpg',
-          description: 'Mikado structuré, épaules dénudées, jupe droite. Volume géométrique et allure sculpturale.',
-          composition: 'Mikado d\'Italie, doublure en satin de coton'
-        },
-        {
-          id: 'robe-05', name: 'Nº 05', ref: 'DD-R05',
-          image: 'IMG_0304.jpg',
-          description: 'Tulle et chantilly, col rond, jupe fluide. Légèreté et mouvement pour une silhouette aérienne.',
-          composition: 'Tulle de France, chantilly, doublure en soie'
-        },
-        {
-          id: 'robe-06', name: 'Nº 06', ref: 'DD-R06',
-          image: 'IMG_0301.jpg',
-          description: 'Satin duchesse, plis abdominaux sculptés, ouverture dorsale. Pièce d\'exception à la présence incontestable.',
-          composition: 'Satin duchesse, doublure en crêpe de soie'
         }
       ],
       bustiers: [
         {
           id: 'bustier-01', name: 'Nº 01', ref: 'DD-B01',
-          image: 'IMG_0303.jpg',
+          image: 'bustier1.png',
           description: 'Broderie perlée sur tulle, corseterie traditionnelle, fermeture par lacets. Structure intérieure en baleines d\'acier.',
           composition: 'Tulle brodé, soie, baleines d\'acier'
         },
         {
           id: 'bustier-02', name: 'Nº 02', ref: 'DD-B02',
-          image: 'IMG_0304.jpg',
+          image: 'bustier2.png',
           description: 'Dentelle guipure, structure rigide, baleines intégrées. Silhouette cintrée, port assuré.',
           composition: 'Guipure de France, doublure en satin, armature acier'
         },
         {
           id: 'bustier-03', name: 'Nº 03', ref: 'DD-B03',
-          image: 'IMG_0313.jpg',
+          image: 'bustier3.png',
           description: 'Satin duchesse lisse, finition moulée, fermeture arrière dissimulée. Ligne pure, sans ornement superflu.',
           composition: 'Satin duchesse, doublure en soie, baleines flexibles'
         },
         {
           id: 'bustier-04', name: 'Nº 04', ref: 'DD-B04',
-          image: 'IMG_0315.jpg',
+          image: 'bustier4.png',
           description: 'Organdi plissé, volume architectural, armature interne. Sculpture textile portée comme une deuxième peau.',
           composition: 'Organdi plissé, armature sur mesure, doublure soie'
         }
@@ -864,6 +904,12 @@
       document.getElementById('productDescription').textContent = product.description;
       document.getElementById('productComposition').textContent = product.composition;
 
+      // Clear size inputs on open
+      document.getElementById('size-bust').value = '';
+      document.getElementById('size-waist').value = '';
+      document.getElementById('size-hips').value = '';
+      document.getElementById('size-height').value = '';
+
       document.getElementById('productAddBtn').onclick = () => addToCart(id);
 
       const view = document.getElementById('view-product');
@@ -887,11 +933,20 @@
       const product = findProduct(productId);
       if (!product) return;
 
-      const existing = cart.find(item => item.id === productId);
+      // Récupérer les mesures
+      const bust = document.getElementById('size-bust').value || 'N/A';
+      const waist = document.getElementById('size-waist').value || 'N/A';
+      const hips = document.getElementById('size-hips').value || 'N/A';
+      const height = document.getElementById('size-height').value || 'N/A';
+
+      const dimensions = `Poitrine: ${bust}cm | Taille: ${waist}cm | Hanches: ${hips}cm | Hauteur: ${height}cm`;
+
+      const existing = cart.find(item => item.id === productId && item.dimensions === dimensions);
       if (existing) {
         existing.quantity += 1;
       } else {
-        cart.push({ ...product, quantity: 1 });
+        // Génère un ID unique pour cette ligne panier (pour gérer la suppression sans tout casser)
+        cart.push({ ...product, quantity: 1, dimensions, cartId: Date.now() + Math.random() });
       }
 
       updateCartBadge();
@@ -899,8 +954,8 @@
       showToast('Ajouté au panier');
     }
 
-    function removeFromCart(productId) {
-      cart = cart.filter(item => item.id !== productId);
+    function removeFromCart(cartId) {
+      cart = cart.filter(item => item.cartId !== cartId);
       updateCartBadge();
       renderCart();
     }
@@ -928,8 +983,9 @@
           <div class="cart-item-info">
             <div class="cart-item-name">${item.name}</div>
             <div class="cart-item-cat">${item.category} — ${item.ref}</div>
+            <div class="cart-item-dimensions">${item.dimensions}</div>
           </div>
-          <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="Retirer">
+          <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})" aria-label="Retirer">
             <iconify-icon icon="lucide:x" width="14" height="14"></iconify-icon>
           </button>
         </div>
@@ -971,25 +1027,14 @@
        *     items: cart.map(item => ({
        *       id: item.id,
        *       name: item.name,
-       *       quantity: item.quantity
+       *       quantity: item.quantity,
+       *       dimensions: item.dimensions 
        *     }))
        *   })
        * })
        * .then(res => res.json())
        * .then(session => {
        *   window.location.href = session.url;
-       * });
-       *
-       * Côté serveur (Node.js) :
-       * const session = await stripe.checkout.sessions.create({
-       *   payment_method_types: ['card'],
-       *   line_items: items.map(i => ({
-       *     price_data: { currency: 'eur', product_data: { name: i.name }, unit_amount: 0 },
-       *     quantity: i.quantity
-       *   })),
-       *   mode: 'payment',
-       *   success_url: 'https://votredomaine.com/merci',
-       *   cancel_url: 'https://votredomaine.com/panier'
        * });
        */
 
