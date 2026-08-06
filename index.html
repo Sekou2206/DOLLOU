@@ -270,7 +270,7 @@
     .catalog-item { position: relative; overflow: hidden; cursor: pointer; }
     .catalog-item img {
       width: 100%; aspect-ratio: 2/3; object-fit: cover;
-      transition: transform 0.8s ease; /* Grayscale retiré pour laisser la couleur originale */
+      transition: transform 0.8s ease;
     }
     .catalog-item:hover img { transform: scale(1.02); }
     .catalog-item-info { padding: 20px 0; }
@@ -300,7 +300,7 @@
     }
     .product-image-wrapper { overflow: hidden; }
     .product-image-wrapper img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; /* Grayscale retiré */
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
     }
     .product-info { 
       padding-top: 60px; 
@@ -814,7 +814,7 @@
         },
         {
           id: 'robe-03', name: 'Nº 03', ref: 'DD-R03',
-          image: 'robe3 .png',
+          image: 'robe3.png',
           description: 'Crêpe de laine, col bateau, queue de pie. Architecture minimaliste où la coupe fait seule la sophistication.',
           composition: 'Crêpe de laine, doublure en soie naturelle'
         }
@@ -1033,7 +1033,7 @@
     }
 
     function removeFromCart(cartId) {
-      cart = cart.filter(item => item.cartId !== cartId);
+      cart = cart.filter(item => String(item.cartId) !== String(cartId));
       updateCartBadge();
       renderCart();
     }
@@ -1063,7 +1063,7 @@
             <div class="cart-item-cat">${item.category} — ${item.ref} ${item.color !== 'Standard' ? '— ' + item.color : ''}</div>
             <div class="cart-item-dimensions">${item.dimensions}</div>
           </div>
-          <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})" aria-label="Retirer">
+          <button class="cart-item-remove" onclick="removeFromCart('${item.cartId}')" aria-label="Retirer">
             <iconify-icon icon="lucide:x" width="14" height="14"></iconify-icon>
           </button>
         </div>
@@ -1093,30 +1093,6 @@
        CHECKOUT — STRIPE
     ══════════════════════════════════════ */
     function checkout() {
-      /*
-       * ─── Intégration Stripe Checkout ───
-       *
-       * Remplacer ce bloc par l'appel à votre backend :
-       *
-       * fetch('/create-checkout-session', {
-       *   method: 'POST',
-       *   headers: { 'Content-Type': 'application/json' },
-       *   body: JSON.stringify({
-       *     items: cart.map(item => ({
-       *       id: item.id,
-       *       name: item.name,
-       *       quantity: item.quantity,
-       *       dimensions: item.dimensions,
-       *       color: item.color
-       *     }))
-       *   })
-       * })
-       * .then(res => res.json())
-       * .then(session => {
-       *   window.location.href = session.url;
-       * });
-       */
-
       console.log('Checkout Stripe — Articles:', cart);
       showToast('Redirection vers le paiement');
     }
